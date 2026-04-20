@@ -2,7 +2,9 @@
 const express = require('express'); 
 const app = express()
 const port = 3000
-const moviesRouter = require('./routers/moviesRouter')
+const moviesRouter = require('./routers/moviesRouter');
+const notFound = require('./middlewares/notFound');
+const internalError = require('./middlewares/internalError');
 
 
 
@@ -24,3 +26,7 @@ app.listen(port, () => {
     console.log(`Sono in ascolto nel localhost alla porta ${port}`);
     
 });
+
+
+app.use(internalError); //MIDDLEWARES PER GESTIONE DEGLI ERRORI DEL SERVER API
+app.use(notFound); //MIDDLEWARES PER GESTIONE DEGLI ERRORI DEL CLIENT
