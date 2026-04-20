@@ -4,6 +4,8 @@ const app = express()
 const port = 3000
 const connection = require('./database/db');
 
+//MIDDLEWARES
+app.use(express.static('public'))
 
 
 
