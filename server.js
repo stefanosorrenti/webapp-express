@@ -5,12 +5,12 @@ const port = 3000
 const moviesRouter = require('./routers/moviesRouter');
 const notFound = require('./middlewares/notFound');
 const internalError = require('./middlewares/internalError');
-
+const cors = require('cors')
 
 
 //MIDDLEWARES
 app.use(express.static('public')) //PER LA GESTIONE DEI FILE STATICI
-
+app.use(cors())
 
 
 //ENTRY POINT
