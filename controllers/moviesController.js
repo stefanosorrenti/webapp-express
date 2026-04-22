@@ -19,7 +19,7 @@ const show = (req, res) => {
     const id = parseInt(req.params.id) //SALVO IL PARAMETRO DINAMICO 'ID'
     const showMoviesSql = 'SELECT * FROM movies WHERE id = ?' //SALVO LA PRIMA QUERY DA FARE AL DATABASE
     const showReviewsSql = 'SELECT * FROM reviews WHERE movie_id = ?' // SALVO LA SECONDA QUERY DA FARE AL DATABASE
-    
+    const showReviewsAvgSql = 'SELECT AVG(reviews.vote) AS avg_vote FROM reviews WHERE movie_id = ? '
     connection.query(showMoviesSql, [id], (err, moviesResults) => { //ESEGUO LA PRIMA QUERY AL DATABASE
         if (err) return res.status(500).json({error: 'Internal server error'}) //GESTISCO L'ERRORE LATO SERVER
         if (moviesResults.length === 0) return res.status(404).json({error: 'Not found'}) //GESTISCO L'ERRORE LATO CLIENT
@@ -30,8 +30,15 @@ const show = (req, res) => {
             
           movie.reviews = reviewsResults  
             
-          res.json(movie)
+          
+          connection.query(showReviewsAvgSql, [id], (err, avgResults) => {
+              //console.log(avgResults[0]);
+              
+            movie.avg_vote = avgResults[0].avg_vote 
+              res.json(movie)
+          })
         })
+
     })
 };
 
