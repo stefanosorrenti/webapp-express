@@ -2,7 +2,7 @@
 const connection = require('../database/db');
 
 
-
+//INDEX CONTROLLER
 const index =  (req, res) => {
     
     const indexSql  = 'SELECT * FROM movies' //SALVO IN UNA VARIABILE LA QUERY DA FARE AL DB
@@ -14,6 +14,7 @@ const index =  (req, res) => {
     })
 };
 
+//SHOW CONTROLLER
 const show = (req, res) => {
 
     const id = parseInt(req.params.id) //SALVO IL PARAMETRO DINAMICO 'ID'
@@ -42,4 +43,10 @@ const show = (req, res) => {
     })
 };
 
-module.exports = { index, show };
+
+//STORE CONTROLLER
+const store = (req, res) => {
+    res.send('sei nella rotta store')
+}
+
+module.exports = { index, show, store };
