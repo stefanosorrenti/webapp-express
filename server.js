@@ -10,8 +10,8 @@ const cors = require('cors')
 
 //MIDDLEWARES
 app.use(express.static('public')) //PER LA GESTIONE DEI FILE STATICI
-app.use(cors())
-
+app.use(cors()) //PER GESTIRE LA COMUNICAZIONE CON IL FRONTEND
+app.use(express.json()) //PER LA GESTIONE DEL BODY DELLE MIE REQ
 
 //ENTRY POINT
 app.get('/', (req, res) => {
