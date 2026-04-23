@@ -50,8 +50,8 @@ const show = (req, res) => {
 const store = (req, res) => {
     const id = parseInt(req.params.id) //SALVO IL MIO PARAMETRO DINAMICO ID
     const {movie_id, name, vote, text} = req.body //DESTRUTTURO I DATI DELLA MIA RICHIESTA
+    if ( !name || !vote || !text ) return res.status(400).json({error: 'One or more values ​​left blank'})
     const storeReviewSql = 'INSERT INTO `db_movies`.`reviews` (`movie_id`, `name`, `vote`, `text`) VALUES (?, ?, ?, ?)' //SALVO LA MIA QUERY DA FARE AL DATABASE (AGGIUNGI UNA RIGA)
-    
     connection.query(storeReviewSql,[id, name, vote, text], (err, results) => { //EFFETTUO LA RICHIESTA
         if (err) return res.status(500).json({error: 'Internal server error'}) //GESTICO L'ERRORE LATO SERVER
         if (results.affectedRows === 0) return res.status(404).json({error: 'Not Found'}) //GESTISCO L'ERRORE LATO CLIENT
