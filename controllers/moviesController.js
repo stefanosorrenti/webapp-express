@@ -46,8 +46,23 @@ const show = (req, res) => {
 };
 
 
-//STORE CONTROLLER
+
+//STORE
 const store = (req, res) => {
+    const body = req.body
+    const { title, director, genre, release_year, abstract, image } = req.body
+    const storeMovieSql = "INSERT INTO `db_movies`.`movies` (`title`, `director`, `genre`, `release_year`, `abstract`, `image`) VALUES (?, ?, ?, ?, ?, ?)"
+    connection.query(storeMovieSql, [title, director, genre, release_year, abstract, image], (err, results) => {
+
+        res.json({message: "Film aggiunto!", body})
+    })
+    
+}
+     
+
+
+//STORE REVIEW  CONTROLLER
+const store_review = (req, res) => {
     const id = parseInt(req.params.id) //SALVO IL MIO PARAMETRO DINAMICO ID
     const {movie_id, name, vote, text} = req.body //DESTRUTTURO I DATI DELLA MIA RICHIESTA
     if ( !name || !vote || !text ) return res.status(400).json({error: 'One or more values ​​left blank'})
@@ -62,4 +77,4 @@ const store = (req, res) => {
     
 }
 
-module.exports = { index, show, store };
+module.exports = { index, show, store, store_review};
